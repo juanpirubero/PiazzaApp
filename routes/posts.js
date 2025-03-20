@@ -11,7 +11,7 @@ router.post('/', verify, async (req, res) => {
         title: req.body.title,
         description: req.body.description,
         likes: req.body.likes,
-        createdBy: req.user._id,
+        createdBy: req.user._id
     })
 
     // Try to insert...
@@ -44,18 +44,16 @@ router.get('/:postId', async (req, res) => {
 })
 
 // PATCH (Update)
-router.patch('/:postId', verify, async (req, res) => {
+router.put('/:postId', verify, async (req, res) => {
     try {
         const updatePostById = await Post.updateOne(
             { _id: req.params.postId },
             {
                 $set: {
-                    user: req.body.user,
                     title: req.body.title,
-                    text: req.body.text,
-                    hashtag: req.body.hashtag,
-                    location: req.body.location,
-                    url: req.body.url
+                    description: req.body.description,
+                    likes: req.body.likes,
+                    createdBy: req.user._id
                 }
             }
         )
